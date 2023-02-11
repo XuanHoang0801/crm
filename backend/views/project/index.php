@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -34,11 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'deadline',
             // 'category_id' => 'category.name',
             [
-                'attribute' => 'Thể loại',
+                'attribute' => 'category',
                 'value' => 'category.name'
             ],
             [
-                'attribute' => 'Phụ trách',
+                'attribute' => 'user',
                 'value' => 'user.username'
                 ],
             //'image',

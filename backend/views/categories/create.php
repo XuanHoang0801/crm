@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Categories $model */
 
-$this->title = 'Tạo thể loại mới';
-$this->params['breadcrumbs'][] = ['label' => 'Thể loại', 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Categories');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="categories-create">

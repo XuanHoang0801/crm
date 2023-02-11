@@ -19,8 +19,8 @@ class ProjectSearch extends Project
     public function rules()
     {
         return [
-            [['id', 'deadline', 'category_id', 'user_id'], 'integer'],
-            [['name', 'image', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['id', 'deadline'], 'integer'],
+            [['name', 'image', 'category','user'], 'safe'],
         ];
     }
 
@@ -54,8 +54,8 @@ class ProjectSearch extends Project
         $dataProvider->sort->attributes['category'] = [
             // The tables are the ones our relation are configured to
             // in my case they are prefixed with "tbl_"
-            'asc' => ['categories.name' => SORT_ASC],
-            'desc' => ['categories.name' => SORT_DESC],
+            'asc' => ['category.name' => SORT_ASC],
+            'desc' => ['category.name' => SORT_DESC],
         ];
         // Lets do the same with country now
         $dataProvider->sort->attributes['user'] = [
@@ -75,8 +75,8 @@ class ProjectSearch extends Project
         $query->andFilterWhere([
             'id' => $this->id,
             'deadline' => $this->deadline,
-            'category.name' => $this->category,
-            'user_id' => $this->user_id,
+            'category.name' => $this->category_id,
+            'user.username' => $this->user_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
@@ -84,7 +84,7 @@ class ProjectSearch extends Project
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'image', $this->image])
-            ->andFilterWhere(['like', 'category.name', $this->category])
+            ->andFilterWhere(['like', 'categories.name', $this->category])
             ->andFilterWhere(['like', 'user.username', $this->user]);
 
         return $dataProvider;

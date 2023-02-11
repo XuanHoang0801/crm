@@ -7,7 +7,7 @@ use app\models\Request;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
-use backend\models\RequestSearch;
+use app\models\RequestSearch;
 use yii\web\NotFoundHttpException;
 
 /**

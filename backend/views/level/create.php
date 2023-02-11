@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Level $model */
 
-$this->title = 'Tạo cấp độ mới';
-$this->params['breadcrumbs'][] = ['label' => 'Cấp độ', 'url' => ['index']];
+$this->title = Yii::t('app','Tạo cấp độ mới');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app','Cấp độ'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="level-create">

@@ -27,11 +27,14 @@ class AppAsset extends AssetBundle
         'lib/tempusdominus/js/moment.min.js',
         'lib/tempusdominus/js/moment-timezone.min.js',
         'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js',
-        // 'js/main.js',
+        'js/main.js',
         'https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js',
         'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js',
-        'https://code.jquery.com/jquery-3.6.3.js',
-        'js/ckeditor/ckeditor.js'
+        // 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js',
+        // 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js',
+        // // 'https://code.jquery.com/jquery-3.6.3.js',
+        'js/ckeditor/ckeditor.js',
+        'js/language.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

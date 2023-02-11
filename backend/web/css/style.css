@@ -12,7 +12,13 @@
     bottom: 45px;
     z-index: 99;
 }
-
+.rounded-circle {
+    width: 40px;
+    height: 40px;
+}
+.file-caption{
+    margin: 10px 0;
+}
 
 /*** Spinner ***/
 #spinner {

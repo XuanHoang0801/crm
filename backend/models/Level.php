@@ -45,8 +45,8 @@ class Level extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'color' => 'Color',
+            'name' => Yii::t('app','Tên'),
+            'color' => Yii::t('app','Màu sắc'),
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'deleted_at' => 'Deleted At',

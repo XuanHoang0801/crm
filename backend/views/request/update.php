@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Request $model */
 
-$this->title = Yii::t('app', 'Cập nhật yêu cầu: {name}', [
+$this->title = Yii::t('app', 'Update Request: {name}', [
     'name' => $model->name,
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Requests'), 'url' => ['index']];

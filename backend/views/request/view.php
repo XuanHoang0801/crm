@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /** @var app\models\Request $model */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Yêu cầu'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Requests'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -33,28 +33,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'detail:ntext',
             'deadline',
-            [
-                'attribute' => 'Dự án',
-                'value'     => $model->project->name,
-            ],
-            [
-                'attribute' => 'Phụ trách',
-                'value'     => $model->user->username,
-            ],
-            [
-                'attribute' => 'Cấp độ',
-                'value'     => $model->level->name,
-            ],
-            [
-                'attribute' => 'Trạng thái',
-                'value'     => $model->status->name,
-            ],
-          
+            'project_id',
+            'user_id',
+            'status_id',
+            'level_id',
             'image',
-            [
-                'attribute' => 'Ngày tạo',
-                'value'     =>$model->created_at
-            ],
+            'created_at',
+            'updated_at',
+            'deleted_at',
+            'time_start',
+            'time_end',
         ],
     ]) ?>
 

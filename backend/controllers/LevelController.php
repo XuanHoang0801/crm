@@ -3,15 +3,16 @@
 namespace backend\controllers;
 
 use app\models\Level;
-use backend\models\LevelSearch;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\models\LevelSearch;
+use yii\web\NotFoundHttpException;
+use backend\controllers\AppController;
 
 /**
  * LevelController implements the CRUD actions for Level model.
  */
-class LevelController extends Controller
+class LevelController extends AppController
 {
     /**
      * @inheritDoc

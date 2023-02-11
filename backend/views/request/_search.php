@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var backend\models\RequestSearch $model */
+/** @var app\models\RequestSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -41,6 +41,10 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'updated_at') ?>
 
     <?php // echo $form->field($model, 'deleted_at') ?>
+
+    <?php // echo $form->field($model, 'time_start') ?>
+
+    <?php // echo $form->field($model, 'time_end') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

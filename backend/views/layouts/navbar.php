@@ -61,7 +61,7 @@ use yii\bootstrap5\Html;
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <!-- <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;"> -->
-                            <?=Html::img(Url::to('@web/img/user.jpg', true)); ?>
+                            <?=Html::img(Url::to('@web/uploads/'.Yii::$app->user->identity->avatar.'', true),[ 'class' => 'rounded-circle']) ?>
                             <span class="d-none d-lg-inline-flex">
                                 <?=  Yii::$app->user->identity->username?>
                             </span>
@@ -77,6 +77,18 @@ use yii\bootstrap5\Html;
                                 )
                                 . Html::endForm();
                             ?>
+                        </div>
+                    </div>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <!-- <i class="fa fa-bell me-lg-2"></i> -->
+                                <span class="d-none d-lg-inline-flex"> <?= Yii::$app->language ?></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <span class="dropdown-item language" id="vi"><?= Yii::t('app','Tiếng Việt') ?></span>
+                            <span class="dropdown-item language" id="en"><?= Yii::t('app','Tiếng Anh') ?></span>
+                           
                         </div>
                     </div>
                 </div>

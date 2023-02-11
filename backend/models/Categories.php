@@ -45,7 +45,7 @@ class Categories extends \yii\db\ActiveRecord
     {
         return [
             // 'id' => 'ID',
-            'name' => 'Thể loại',
+            'name' => Yii::t('app', 'Thể loại'),
             // 'created_at' => 'Created At',
             // 'updated_at' => 'Updated At',
             // 'deleted_at' => 'Deleted At',

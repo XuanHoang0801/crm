@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\models;
+namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -15,14 +15,16 @@ class RequestSearch extends Request
     public $user;
     public $level;
     public $status;
+    
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'deadline', 'project_id', 'user_id', 'status_id', 'level_id'], 'integer'],
-            [['name', 'detail', 'image', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['id', 'deadline'], 'integer'],
+            [['name', 'detail', 'image','project','status','user', 'level', 'time_start', 'time_end'], 'safe'],
         ];
     }
 
@@ -45,37 +47,34 @@ class RequestSearch extends Request
     public function search($params)
     {
         $query = Request::find();
+        $query->joinWith(['project', 'user','level','status']);
 
         // add conditions that should always apply here
-        $query->joinWith(['project', 'user','level', 'status']);
-
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        $dataProvider->sort->attributes['Dự án'] = [
+
+        $dataProvider->sort->attributes['project'] = [
             // The tables are the ones our relation are configured to
             // in my case they are prefixed with "tbl_"
             'asc' => ['project.name' => SORT_ASC],
             'desc' => ['project.name' => SORT_DESC],
         ];
-        $dataProvider->sort->attributes['Giao cho'] = [
-            // The tables are the ones our relation are configured to
-            // in my case they are prefixed with "tbl_"
-            'asc' => ['user.username' => SORT_ASC],
-            'desc' => ['user.username' => SORT_DESC],
+        // Lets do the same with country now
+        $dataProvider->sort->attributes['user'] = [
+            'asc' => ['user.fullname' => SORT_ASC],
+            'desc' => ['user.fullname' => SORT_DESC],
         ];
-        $dataProvider->sort->attributes['Cấp độ'] = [
-            // The tables are the ones our relation are configured to
-            // in my case they are prefixed with "tbl_"
-            'asc' => ['level.name' => SORT_ASC],
-            'desc' => ['level.name' => SORT_DESC],
-        ];
-        $dataProvider->sort->attributes['Trạng thái'] = [
-            // The tables are the ones our relation are configured to
-            // in my case they are prefixed with "tbl_"
+        // Lets do the same with country now
+        $dataProvider->sort->attributes['status'] = [
             'asc' => ['status.name' => SORT_ASC],
             'desc' => ['status.name' => SORT_DESC],
+        ];
+        // Lets do the same with country now
+        $dataProvider->sort->attributes['level'] = [
+            'asc' => ['level.name' => SORT_ASC],
+            'desc' => ['level.name' => SORT_DESC],
         ];
 
         $this->load($params);
@@ -89,23 +88,27 @@ class RequestSearch extends Request
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'name' =>$this->name,
             'deadline' => $this->deadline,
-            'project_id' => $this->project_id,
-            'user_id' => $this->user_id,
-            'status_id' => $this->status_id,
-            'level_id' => $this->level_id,
+            'project.name' => $this->project_id,
+            'user.fullname' => $this->user_id,
+            'status.name' => $this->status_id,
+            'level.name' => $this->level_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
+            'time_start' => $this->time_start,
+            'time_end' => $this->time_end,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'detail', $this->detail])
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'project.name', $this->project])
-            ->andFilterWhere(['like', 'user.username', $this->user])
-            ->andFilterWhere(['like', 'level.name', $this->level])
-            ->andFilterWhere(['like', 'status.username', $this->status]);
+            ->andFilterWhere(['like', 'user.fullname', $this->user])
+            ->andFilterWhere(['like', 'status.name', $this->status])
+            ->andFilterWhere(['like', 'level.fullname', $this->level]);
+
 
         return $dataProvider;
     }

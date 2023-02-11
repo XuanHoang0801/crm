@@ -21,6 +21,8 @@ use yii\behaviors\TimestampBehavior;
  * @property string $created_at
  * @property string $updated_at
  * @property string|null $deleted_at
+ * @property string|null $time_start
+ * @property string|null $time_end
  *
  * @property Level $level
  * @property Project $project
@@ -43,16 +45,27 @@ class Request extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'detail', 'deadline', 'project_id', 'user_id', 'status_id', 'level_id'], 'required'],
+            [['name', 'detail', 'deadline', 'project_id', 'user_id', 'status_id', 'level_id','time_start','time_end'], 'required'],
             [['detail'], 'string'],
             [['deadline', 'project_id', 'user_id', 'status_id', 'level_id'], 'integer'],
-            [['created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['time_start', 'time_end'], 'safe'],
             [['name', 'image'], 'string', 'max' => 255],
             [['level_id'], 'exist', 'skipOnError' => true, 'targetClass' => Level::class, 'targetAttribute' => ['level_id' => 'id']],
             [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Project::class, 'targetAttribute' => ['project_id' => 'id']],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['status_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
-            [['image'], 'file','extensions' => 'png, jpg'],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'),
+            ],
         ];
     }
 
@@ -67,25 +80,15 @@ class Request extends \yii\db\ActiveRecord
             'detail' => Yii::t('app', 'Chi tiết yêu cầu'),
             'deadline' => Yii::t('app', 'Tiến độ'),
             'project_id' => Yii::t('app', 'Dự án'),
-            'user_id' => Yii::t('app', 'Người thực hiện'),
+            'user_id' => Yii::t('app', 'Người phụ trách'),
             'status_id' => Yii::t('app', 'Trạng thái'),
             'level_id' => Yii::t('app', 'Cấp độ'),
-            'image' => Yii::t('app', 'Ảnh đại diện'),
-            'created_at' => Yii::t('app', 'Ngày tạo'),
+            'image' => Yii::t('app', 'Hình ảnh'),
+            'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
             'deleted_at' => Yii::t('app', 'Deleted At'),
-        ];
-    }
-
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => TimestampBehavior::class,
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-                'value' => new Expression('NOW()'),
-            ],
+            'time_start' => Yii::t('app', 'Bắt đầu'),
+            'time_end' => Yii::t('app', 'Kết thúc'),
         ];
     }
 

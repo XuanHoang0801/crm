@@ -7,7 +7,7 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /** @var yii\web\View $this */
-/** @var backend\models\RequestSearch $searchModel */
+/** @var app\models\RequestSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = Yii::t('app', 'Quản lý yêu cầu');
@@ -30,33 +30,28 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-           'name',
-            'detail:ntext',
+            'name',
+            // 'detail:ntext',
             'deadline',
             [
-                'attribute' => 'Dự án',
+                'label' => Yii::t('app','Dự án'),
+                'attribute' => 'project',
                 'value' => 'project.name'
             ],
             [
-                'attribute' => 'Giao cho',
-                'value' => 'user.username'
+                'label' => Yii::t('app','Người phụ trách'),
+                'attribute' => 'user',
+                'value' => 'user.fullname'
             ],
             [
-                'attribute' => 'Cấp độ',
-                'value' => 'level.name'
-            ],
-            [
-                'attribute' => 'Trạng thái',
+                'label' => Yii::t('app','Trạng thái'),
+                'attribute' => 'status',
                 'value' => 'status.name'
             ],
             //'level_id',
-            [
-                'attribute' => 'Hình ảnh',
-                'value' => 'image'
-            ],
-            //'created_at',
-            //'updated_at',
-            //'deleted_at',
+            //'image',
+            // 'time_start',
+            // 'time_end',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Request $model, $key, $index, $column) {

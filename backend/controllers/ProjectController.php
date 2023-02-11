@@ -2,18 +2,16 @@
 
 namespace backend\controllers;
 
-use Yii;
-use app\models\Project;
-use yii\web\Controller;
-use yii\web\UploadedFile;
-use yii\filters\VerbFilter;
-use backend\models\ProjectSearch;
+use app\models\Menu;
+use backend\models\MenuSearch;
+use backend\controllers\AppController;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
 /**
- * ProjectController implements the CRUD actions for Project model.
+ * ProjectController implements the CRUD actions for Menu model.
  */
-class ProjectController extends Controller
+class ProjectController extends AppController
 {
     /**
      * @inheritDoc
@@ -34,13 +32,13 @@ class ProjectController extends Controller
     }
 
     /**
-     * Lists all Project models.
+     * Lists all Menu models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new ProjectSearch();
+        $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -50,7 +48,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Displays a single Project model.
+     * Displays a single Menu model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -63,21 +61,16 @@ class ProjectController extends Controller
     }
 
     /**
-     * Creates a new Project model.
+     * Creates a new Menu model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Project();
+        $model = new Menu();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                $model->image = UploadedFile::getInstance($model, 'image');
-                $model->image->saveAs('uploads/' . $model->image->baseName . '.' . $model->image->extension); // lưu ảnh vào thư mục uploads
-            
-                $model->image = $model->image->baseName . '.' . $model->image->extension; // lưu vào database
-                $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -90,7 +83,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Updates an existing Project model.
+     * Updates an existing Menu model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -110,7 +103,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Deletes an existing Project model.
+     * Deletes an existing Menu model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -124,15 +117,15 @@ class ProjectController extends Controller
     }
 
     /**
-     * Finds the Project model based on its primary key value.
+     * Finds the Menu model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Project the loaded model
+     * @return Menu the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Project::findOne(['id' => $id])) !== null) {
+        if (($model = Menu::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

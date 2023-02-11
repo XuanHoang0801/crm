@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
 /** @var backend\models\LevelSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Cấp độ';
+$this->title = Yii::t('app','Cấp độ');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="level-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Tạo cấp độ mới', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app','Tạo cấp độ mới'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>

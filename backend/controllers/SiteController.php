@@ -2,17 +2,18 @@
 
 namespace backend\controllers;
 
-use common\models\LoginForm;
 use Yii;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\web\Response;
+// use yii\web\Controller;
+use yii\filters\VerbFilter;
+use common\models\LoginForm;
+use yii\filters\AccessControl;
+use backend\controllers\AppController;
 
 /**
  * Site controller
  */
-class SiteController extends Controller
+class SiteController extends AppController
 {
     /**
      * {@inheritdoc}
@@ -24,14 +25,15 @@ class SiteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
+                        'actions' => ['login', 'error','language'],
+                        'allow' => true,  
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout','index'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    
                 ],
             ],
             'verbs' => [
@@ -100,5 +102,13 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    public function actionLanguage()
+    {
+            if(isset($_POST['lang'])){
+                $lang = Yii::$app->language = $_POST['lang'];
+                Yii::$app->getSession()->set('language', $lang);
+            }
     }
 }

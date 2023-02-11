@@ -1,6 +1,5 @@
 <?php
-
-use yii\web\Request;
+   use yii\web\Request;
 
 $baseUrl = str_replace('/backend/web','/', (new Request)->getBaseUrl());
 $params = array_merge(
@@ -52,6 +51,29 @@ return [
             'rules' => [
             ],
         ],
+
+        'assetManager' => [
+            'bundles' => [
+                'kartik\form\ActiveFormAsset' => [
+                    'bsDependencyEnabled' => false // do not load bootstrap assets for a specific asset bundle
+                ],
+            ],
+        ],
+
+        'i18n' => [
+            'translations' => [
+                'app' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    // 'basePath' => '@app/messages',
+                    'sourceLanguage' => 'vi',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+            ],
+        ],
+
         
     ],
     'params' => $params,
