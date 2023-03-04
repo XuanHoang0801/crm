@@ -82,12 +82,27 @@ use yii\bootstrap5\Html;
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <!-- <i class="fa fa-bell me-lg-2"></i> -->
-                                <span class="d-none d-lg-inline-flex"> <?= Yii::$app->language ?></span>
+                            <?php
+                                $lang =  Yii::$app->language;
+                                if($lang == 'vi'){
+                            ?>
+                                <span class="d-none d-lg-inline-flex"> <?= Html::img('@web/img/vi.png',['width' => 20, 'height' => 20, 'style' => 'object-fit: contain;']) ?></span>
+                            <?php }  else{?>
+                                <span class="d-none d-lg-inline-flex"> <?= Html::img('@web/img/en.png',['width' => 20, 'height' => 20, 'style' => 'object-fit: contain;']) ?></span>
+
+                            <?php } ?>
+
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <span class="dropdown-item language" id="vi"><?= Yii::t('app','Tiếng Việt') ?></span>
-                            <span class="dropdown-item language" id="en"><?= Yii::t('app','Tiếng Anh') ?></span>
+                            <span class="dropdown-item language" id="vi">
+                                <?= Html::img('@web/img/vi.png',['width' => 20, 'height' => 20, 'style' => 'object-fit: contain;']) ?>
+                                <?= Yii::t('app','Tiếng Việt') ?>
+                            </span>
+                            <span class="dropdown-item language" id="en">
+                                <?= Html::img('@web/img/en.png',['width' => 20, 'height' => 20, 'style' => 'object-fit: contain;']) ?>
+
+                                <?= Yii::t('app','Tiếng Anh') ?>
+                            </span>
                            
                         </div>
                     </div>

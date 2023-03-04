@@ -6,12 +6,14 @@ use yii\widgets\Pjax;
 use yii\grid\GridView;
 use app\models\Categories;
 use kartik\file\FileInput;
+use yii\bootstrap4\LinkPager as Bootstrap4LinkPager;
 use yii\grid\ActionColumn;
 use yii\widgets\ActiveForm;
+use yii\bootstrap5\LinkPager;
 /** @var yii\web\View $this */
 /** @var backend\models\CategoriesSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
-
+// $this->registerJsFile('js/check_box.js');
 $this->title = Yii::t('app', 'Thể loại');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -48,19 +50,25 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php ActiveForm::end(); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Export Excel'), ['export-excel'], ['class' => 'btn btn-success mt-3']) ?>
+        <?= Html::a(Yii::t('app', 'Export Excel'), ['excel'], ['class' => 'btn btn-success mt-3']) ?>
     </p>
+    <div class="delete" style="display:none">
+        <button class="btn btn-danger" id="delete" >Xóa dữ liệu đã chọn</button>
+        <button class="btn btn-danger" id="delete-all">Xóa tất cả</button>
 
-    <?php Pjax::begin(); ?>
+
+    </div>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            ['class' => 'yii\grid\CheckboxColumn'],
+
             ['class' => 'yii\grid\SerialColumn'],
 
-            // 'id',
+            'id',
             'name',
             // 'created_at',
             // 'updated_at',
@@ -71,9 +79,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
+
+        ],
+        'pager' => [
+
+            'class' => Bootstrap4LinkPager::class,
         ],
     ]); ?>
-
-    <?php Pjax::end(); ?>
 
 </div>

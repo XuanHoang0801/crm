@@ -25,7 +25,7 @@ class SiteController extends AppController
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['login', 'error','language'],
+                        'actions' => ['login', 'error','language','captcha'],
                         'allow' => true,  
                     ],
                     [
@@ -53,6 +53,12 @@ class SiteController extends AppController
         return [
             'error' => [
                 'class' => \yii\web\ErrorAction::class,
+            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+    //                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                'minLength' => 3,
+                'maxLength' => 5,
             ],
         ];
     }

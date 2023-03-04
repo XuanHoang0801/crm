@@ -174,11 +174,11 @@ class CategoriesController extends AppController
         $searchModel = new CategoriesSearch();
         $queryParams = Yii::$app->session->get(self::className() . 'queryParams');
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $max = 30;
-        if ($dataProvider->totalCount > $max) {
-        Yii::$app->session->setFlash('error', Yii::t('app', 'Không thể thực hiện do số lượng dữ liệu vượt quá {max}. Vui lòng lọc thêm dữ liệu', ['max' => $max]));
-        return $this->redirect('index');
-        }
+        // $max = 30;
+        // if ($dataProvider->totalCount > $max) {
+        // Yii::$app->session->setFlash('error', Yii::t('app', 'Không thể thực hiện do số lượng dữ liệu vượt quá {max}. Vui lòng lọc thêm dữ liệu', ['max' => $max]));
+        // return $this->redirect('index');
+        // }
         if ($dataProvider->totalCount == 0) {
         
         Yii::$app->session->setFlash('error', Yii::t('app', 'Không có dữ liệu để export'));
@@ -265,4 +265,66 @@ class CategoriesController extends AppController
         $excelData[] = $t;
         BaseUnits::exportExcelTemp('', $fields, 'template_import_categories', $excelData);
     }
+
+
+    public function actionAjaxDelete()
+    {
+        $id = Yii::$app->request->post('id');
+        $this->findModel($id)->delete();
+        
+    }
+    public function actionAjaxDeleteAll()
+    {
+        // $id = Yii::$app->request->post('id');
+        Categories::deleteAll();
+        
+    }
+
+    public function actionExcel()
+    {
+        $searchModel = new CategoriesSearch();
+        $queryParams = Yii::$app->session->get(self::className() . 'queryParams');
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $index = 0;
+        $limit= 10000;
+        $path = 'uploads/test.csv';
+        $header = array('id','name');
+        $file = fopen($path,"w");
+        fputcsv($file, $header);
+        fclose($file);
+        $file = fopen($path,"a");
+
+        while(true){
+            $set = $index* $limit;
+            $query = Categories::find()->limit($limit)->offset($set)->all();
+           foreach( $query as $item){
+            $arr = array($item->id,$item->name);
+                fputcsv($file, $arr);
+                // echo $item->name .'<br>';
+                
+           }
+           $index ++;
+           if(empty($query)){
+               break;
+            }
+            
+        }
+        fclose($file);
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Csv');
+
+        // If the files uses a delimiter other than a comma (e.g. a tab), then tell the reader
+        // $reader->setDelimiter("\t");
+        // If the files uses an encoding other than UTF-8 or ASCII, then tell the reader
+        // $reader->setInputEncoding('UTF-16LE');
+
+        $objPHPExcel = $reader->load($path);
+        $objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($objPHPExcel, 'Xlsx');
+        $objWriter->save('uploads/excel_file.xlsx');
+        // Yii::$app->response->sendFile('uploads/excel_file.xlsx')->send();
+        echo 'export thành công !';
+
+       
+    } 
+
+    
 }

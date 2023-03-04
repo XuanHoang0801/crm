@@ -16,6 +16,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string|null $created_at
  * @property string|null $updated_at
  * @property int|null $type
+ * @property int|null $active
  * @property string|null $icon
  */
 class Menu extends \yii\db\ActiveRecord
@@ -34,7 +35,7 @@ class Menu extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name','active'], 'required'],
             [['parent', 'type'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'route', 'icon'], 'string', 'max' => 255],
@@ -67,23 +68,24 @@ class Menu extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('app', 'Updated At'),
             'type' => Yii::t('app', 'Type'),
             'icon' => Yii::t('app', 'Icon'),
+            'active' => Yii::t('app', 'Hiển thị'),
         ];
     }
 
     public static function getDashboard()
     {
-        $dashoard = Menu::find()->where('parent = 1')->all();
+        $dashoard = Menu::find()->where('parent = 1')->andWhere(['active' => 1])->all();
         return $dashoard;
     }
-    public static function getMenuItem()
+    public static function getMenuItem($id)
     {
-        $menuItem = Menu::find()->where('parent = 4')->all();
+        $menuItem = Menu::find()->where(['parent' => $id])->andWhere(['active' => 1])->all();
         return $menuItem;
     }
-    public static function getConfig()
+    public static function getMenuParent()
     {
-        $config = Menu::find()->where('parent = 9')->all();
-        return $config;
+        $parent = Menu::find()->where(['type' => 0])->andWhere(['active' => 1])->all();
+        return $parent;
     }
 
 

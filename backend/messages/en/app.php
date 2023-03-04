@@ -8,4 +8,7 @@ return [
     'Tiếng Việt' => 'Vietnamese',
     'Tiếng Anh' => 'English',
     'Thể loại' => 'Categories',
+    'Quản lý dự án' => 'Project Manager',
+    'Quản lý yêu cầu' => 'Request Manager',
+    'Quản lý task công việc' => 'Task Manager',
 ];

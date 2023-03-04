@@ -4,8 +4,9 @@
 /** @var yii\bootstrap5\ActiveForm $form */
 /** @var \common\models\LoginForm $model */
 
-use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
+use yii\captcha\Captcha;
+use yii\bootstrap5\ActiveForm;
 
 $this->title = 'Login';
 ?>
@@ -21,7 +22,15 @@ $this->title = 'Login';
 
             <?= $form->field($model, 'password')->passwordInput() ?>
 
+            <?= $form->field($model, 'captcha')->widget(Captcha::className(),
+                ['template' => '<div class="captcha_img">{image}</div>'
+                . '<a class="refreshcaptcha" href="#">'
+                . Html::img('/images/imageName.png',[]).'</a>'
+                . 'Captcha Code{input}',
+            ])->label(FALSE); ?> 
+            
             <?= $form->field($model, 'rememberMe')->checkbox() ?>
+
 
             <div class="form-group">
                 <?= Html::submitButton('Login', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
