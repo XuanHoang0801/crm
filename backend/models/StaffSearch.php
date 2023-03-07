@@ -17,8 +17,8 @@ class StaffSearch extends Staff
     public function rules()
     {
         return [
-            [['id', 'status', 'created_at', 'updated_at', 'type'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'verification_token'], 'safe'],
+            [['id', 'phone', 'email', 'province_id'], 'integer'],
+            [['name', 'staff_code'], 'safe'],
         ];
     }
 
@@ -40,8 +40,7 @@ class StaffSearch extends Staff
      */
     public function search($params)
     {
-        // $query = Staff::find();
-        $query = Staff::find()->where(['type'=>'1']);
+        $query = Staff::find();
 
         // add conditions that should always apply here
 
@@ -60,18 +59,13 @@ class StaffSearch extends Staff
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'type' => $this->type,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'province_id' => $this->province_id,
         ]);
 
-        $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
-            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'verification_token', $this->verification_token]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'staff_code', $this->staff_code]);
 
         return $dataProvider;
     }

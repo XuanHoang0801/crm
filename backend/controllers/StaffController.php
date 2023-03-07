@@ -2,19 +2,16 @@
 
 namespace backend\controllers;
 
-use Yii;
 use app\models\Staff;
-use yii\web\Controller;
-use yii\web\UploadedFile;
-use app\models\SignupForm;
-use yii\filters\VerbFilter;
 use backend\models\StaffSearch;
+use backend\controllers\AppController;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
 /**
  * StaffController implements the CRUD actions for Staff model.
  */
-class StaffController extends Controller
+class StaffController extends AppController
 {
     /**
      * @inheritDoc
@@ -70,13 +67,14 @@ class StaffController extends Controller
      */
     public function actionCreate()
     {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-                $model->avatar = UploadedFile::getInstance($model, 'avatar');
-                $model->avatar->saveAs('uploads/' . $model->avatar->baseName . '.' . $model->avatar->extension); // lưu ảnh vào thư mục uploads
-            
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
+        $model = new Staff();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        } else {
+            $model->loadDefaultValues();
         }
 
         return $this->render('create', [

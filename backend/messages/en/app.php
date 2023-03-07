@@ -11,4 +11,6 @@ return [
     'Quản lý dự án' => 'Project Manager',
     'Quản lý yêu cầu' => 'Request Manager',
     'Quản lý task công việc' => 'Task Manager',
+    'Thông báo' => 'Notifycation',
+    
 ];

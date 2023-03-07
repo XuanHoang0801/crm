@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use app\models\Notify;
 use Yii;
 use Exception;
 use app\models\Task;
@@ -79,6 +80,9 @@ class TaskController extends AppController
      */
     public function actionView($id)
     {
+        $notify = Notify::find()->where(['user_id' => Yii::$app->user->identity->id])->andWhere(['task_id'=>$id])->one();
+        $notify->status = 1;
+        $notify->save();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -93,8 +97,17 @@ class TaskController extends AppController
     {
         $model = new Task();
 
+
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+                $model->save();
+                $notify = new Notify();
+
+                $notify->title = $model->name;
+                $notify->user_id = Yii::$app->user->identity->id;
+                $notify->task_id = $model->id;
+                $notify->status = 0;
+                $notify->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {

@@ -1,0 +1,31 @@
+<?php
+
+use yii\helpers\Html;
+use app\models\Province;
+use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+
+/** @var yii\web\View $this */
+/** @var app\models\BelongUnit $model */
+/** @var yii\widgets\ActiveForm $form */
+?>
+
+<div class="belong-unit-form">
+
+    <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'belong_code')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'province_id')->dropDownList(
+        ArrayHelper::map(Province::getProvince(), 'province_code', 'name'))   
+    ?>
+
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success mt-3']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>

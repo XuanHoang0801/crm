@@ -5,22 +5,14 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "user".
+ * This is the model class for table "staff".
  *
  * @property int $id
- * @property string $username
- * @property string $auth_key
- * @property string $password_hash
- * @property string|null $password_reset_token
- * @property string $email
- * @property int $status
- * @property int $created_at
- * @property int $updated_at
- * @property string|null $verification_token
- * @property int $type
- *
- * @property Project[] $projects
- * @property Request[] $requests
+ * @property string $name
+ * @property string|null $phone
+ * @property string|null $email
+ * @property string|null $province_id
+ * @property string $staff_code
  */
 class Staff extends \yii\db\ActiveRecord
 {
@@ -29,7 +21,7 @@ class Staff extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'user';
+        return 'staff';
     }
 
     /**
@@ -38,13 +30,8 @@ class Staff extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email', 'type'], 'required'],
-            [['status', 'created_at', 'updated_at', 'type'], 'integer'],
-            [['username', 'password_hash', 'password_reset_token', 'email', 'verification_token'], 'string', 'max' => 255],
-            [['auth_key'], 'string', 'max' => 32],
-            [['username'], 'unique'],
-            [['email'], 'unique'],
-            [['password_reset_token'], 'unique'],
+            [['name', 'staff_code'], 'required'],
+            [['name', 'phone', 'email', 'province_id', 'staff_code'], 'string', 'max' => 255],
         ];
     }
 
@@ -55,36 +42,16 @@ class Staff extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'username' => Yii::t('app', 'Tên đăng nhập'),
-            'auth_key' => Yii::t('app', 'Auth Key'),
-            'password_hash' => Yii::t('app', 'Password Hash'),
-            'password_reset_token' => Yii::t('app', 'Password Reset Token'),
+            'name' => Yii::t('app', 'Họ Tên'),
+            'phone' => Yii::t('app', 'Điện thoại'),
             'email' => Yii::t('app', 'Email'),
-            'status' => Yii::t('app', 'Status'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
-            'verification_token' => Yii::t('app', 'Verification Token'),
-            'type' => Yii::t('app', 'Type'),
+            'province_id' => Yii::t('app', 'Mã tỉnh'),
+            'staff_code' => Yii::t('app', 'Mã nhân viên'),
         ];
     }
 
-    /**
-     * Gets query for [[Projects]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getProjects()
+    public static function getStaff()
     {
-        return $this->hasMany(Project::class, ['user_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Requests]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRequests()
-    {
-        return $this->hasMany(Request::class, ['user_id' => 'id']);
+        return Staff::find()->all();
     }
 }

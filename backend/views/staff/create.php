@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Staff $model */
 
-$this->title = Yii::t('app', 'Thêm nhân viên');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Nhân viên'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Thêm mới nhân viên');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Staff'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="staff-create">

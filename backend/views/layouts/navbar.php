@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Notify;
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
 
@@ -17,44 +18,32 @@ use yii\bootstrap5\Html;
                     <input class="form-control border-0" type="search" placeholder="Search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                   
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notificatin</span>
+                            <?php 
+                                if(count(Notify::getCount()) != 0){
+                            ?>
+                            <span class="position-absolute top start translate-middle badge rounded-pill bg-danger"> <?= count(Notify::getCount()) ?></span>
+                            <?php } ?>
+                            <span class="d-none d-lg-inline-flex"><?= Yii::t('app','Thông báo')?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
+                            <?php 
+                                if(count(Notify::getCount()) == 0){
+                            ?>
+                        <span  class="dropdown-item text-center text-primary"><?= Yii::t('app','Không có thông báo mới!') ?></span>
+
+                            <?php } else{ }
+                                foreach (Notify::getNotify() as $notify){
+                            ?>
+                                <a href="<?= Url::toRoute('task/view?id='.$notify->task_id) ?>" class="dropdown-item">
+                                    <h6 class="fw-normal mb-0"><?= $notify->title ?></h6>
+                                    <small><?= $notify->created_at ?></small>
+                                </a>
+                                <hr class="dropdown-divider">
+                           <?php } ?>
                             <a href="#" class="dropdown-item text-center">See all notifications</a>
                         </div>
                     </div>

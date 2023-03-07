@@ -7,4 +7,11 @@ return [
         'en',
         'vi' 
     ],
+
+    'status' => [
+        0 => 'Dùng thử',
+        1 => 'Đang hoạt động',
+        2 => 'Không hoạt động',
+        3 => 'Hểt hạn'
+    ]
 ];

@@ -19,7 +19,9 @@
 .file-caption{
     margin: 10px 0;
 }
-
+.help-block{
+    color: red;
+}
 /*** Spinner ***/
 #spinner {
     opacity: 0;

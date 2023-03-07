@@ -20,14 +20,7 @@ use yii\bootstrap5\NavBar;
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="/crm" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i><?= Yii::t('app','Quản trị') ?></a>
-                            <?php
-                                foreach(Menu::getDashboard() as $dashboard){
-                            ?>
-                            <a href="<?= Url::toRoute($dashboard->route,true)?>" class="dropdown-item"><?= Yii::t('app',$dashboard->name) ?></a>
-                            <?php } ?>
-                    </div>
+                    
                     <?php
                         foreach(Menu::getMenuParent()as $parent){
                     ?>

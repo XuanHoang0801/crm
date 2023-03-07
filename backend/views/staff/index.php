@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
 /** @var backend\models\StaffSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = Yii::t('app', 'Quản lý nhân viên');
+$this->title = Yii::t('app', 'Nhân viên');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="staff-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Thêm nhân viên'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Staff'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -30,14 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'username',
-            // 'auth_key',
+            'id',
+            'name',
+            'phone',
             'email:email',
-            //'status',
-            //'created_at',
-            //'updated_at',
-            //'verification_token',
-            //'type',
+            'province_id',
+            //'staff_code',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Staff $model, $key, $index, $column) {
