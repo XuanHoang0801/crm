@@ -13,5 +13,10 @@ return [
         1 => 'Đang hoạt động',
         2 => 'Không hoạt động',
         3 => 'Hểt hạn'
+    ],
+    'menu.active'=>[
+        0 => 'Ẩn',
+        1 => 'Hiện',
+
     ]
 ];

@@ -49,6 +49,10 @@ class Staff extends \yii\db\ActiveRecord
             'staff_code' => Yii::t('app', 'Mã nhân viên'),
         ];
     }
+    public function getUnit()
+    {
+        return $this->hasOne(Unit::class,['staff_code' => 'customer_id']);
+    }
 
     public static function getStaff()
     {

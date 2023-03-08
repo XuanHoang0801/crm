@@ -1,11 +1,15 @@
 <?php
 
 use app\models\Plan;
-use yii\helpers\Html;
+use app\models\Unit;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use app\models\Staff;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
+use yii\grid\GridView;
+use yii\grid\ActionColumn;
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 /** @var yii\web\View $this */
 /** @var backend\models\PlanSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -32,11 +36,41 @@ $this->params['breadcrumbs'][] = $this->title;
 
             // 'id',
             'name',
-            'customer_id',
+            [
+                'attribute' => 'customer_id',
+                'value' => 'customer_id',
+                'filter' => Select2::widget(
+                    [
+                        'model' => $searchModel,
+                        'attribute' => 'customer_id',
+                        'data' => ArrayHelper::map(Staff::getStaff(), 'staff_code', 'staff_code'),
+                        'options' => ['placeholder' => 'All'],
+                        'pluginOptions' => [
+                            'allowClear' => true,
+                        ],
+                    ]),
+            ],
+            
+            
+
             'form',
             'time_start',
             'time_end',
-            'unit_id',
+            
+            [
+                'attribute' => 'unit_id',
+                'value' => 'unit_id',
+               'filter' => Select2::widget(
+                [
+                    'model' => $searchModel,
+                    'attribute' => 'unit_id',
+                    'data' => ArrayHelper::map(Unit::getUnit(), 'unit_code', 'unit_code'),
+                    'options' => ['placeholder' => 'All'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]),
+            ],
             //'content:ntext',
             //'error:ntext',
             //'request',

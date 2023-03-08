@@ -87,6 +87,11 @@ class Menu extends \yii\db\ActiveRecord
         $parent = Menu::find()->where(['type' => 0])->andWhere(['active' => 1])->all();
         return $parent;
     }
+    public static function getParent()
+    {
+        $parent = Menu::find()->where(['type' => 0])->all();
+        return $parent;
+    }
 
 
 }

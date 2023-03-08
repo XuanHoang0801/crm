@@ -1,11 +1,15 @@
 <?php
 
-use app\models\Transaction;
-use yii\helpers\Html;
+use app\models\Package;
+use app\models\Unit;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
+use yii\grid\GridView;
+use yii\grid\ActionColumn;
+use app\models\Transaction;
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 /** @var yii\web\View $this */
 /** @var backend\models\TransactionSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -32,10 +36,36 @@ $this->params['breadcrumbs'][] = $this->title;
 
             // 'id',
             'code',
-            'unit_id',
+            [
+                'attribute' => 'unit_id',
+                'value' => 'unit_id',
+               'filter' => Select2::widget(
+                [
+                    'model' => $searchModel,
+                    'attribute' => 'unit_id',
+                    'data' => ArrayHelper::map(Unit::getUnit(), 'unit_code', 'unit_code'),
+                    'options' => ['placeholder' => 'All'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]),
+            ],
             'time_start',
             'time_end',
-            'package_id',
+            [
+                'attribute' => 'package_id',
+                'value' => 'package_id',
+               'filter' => Select2::widget(
+                [
+                    'model' => $searchModel,
+                    'attribute' => 'package_id',
+                    'data' => ArrayHelper::map(Package::getPackage(), 'code', 'code'),
+                    'options' => ['placeholder' => 'All'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]),
+            ],
             'total',
             'status',
             [

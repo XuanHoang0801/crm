@@ -35,7 +35,7 @@ class Plan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name','unit_id','customer_id'], 'required'],
             [['form'], 'integer'],
             [['time_start', 'time_end'], 'safe'],
             [['content', 'error', 'fix'], 'string'],
@@ -58,8 +58,12 @@ class Plan extends \yii\db\ActiveRecord
             'unit_id' => Yii::t('app', 'Mã đơn vị'),
             'content' => Yii::t('app', 'Nội dung'),
             'error' => Yii::t('app', 'Lỗi'),
-            'request' => Yii::t('app', 'Yêu cầu'),
-            'fix' => Yii::t('app', 'Khắc phục'),
+            'request' => Yii::t('app', 'Đề xuất'),
+            'fix' => Yii::t('app', 'Rút kinh nghiệm'),
         ];
+    }
+    public function getUnit()
+    {
+        return $this->hasOne(Unit::class,['unit_code'=> 'unit_id']);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Staff;
+use app\models\Unit;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -19,6 +20,9 @@ use kartik\datetime\DateTimePicker;
 
     <?= $form->field($model, 'customer_id')->dropDownList(
         ArrayHelper::map(Staff::getStaff(), 'staff_code', 'name'),['prompt'=>'--Select Option--'])   
+    ?>
+     <?= $form->field($model, 'unit_id')->dropDownList(
+        ArrayHelper::map(Unit::getUnit(), 'unit_code', 'name'),['prompt'=>'--Select Option--'])   
     ?>
 
     <?= $form->field($model, 'form')->dropDownList(
@@ -46,8 +50,6 @@ use kartik\datetime\DateTimePicker;
             ]
         ]);
     ?>
-
-    <?= $form->field($model, 'unit_id')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 

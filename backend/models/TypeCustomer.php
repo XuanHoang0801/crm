@@ -42,6 +42,7 @@ class TypeCustomer extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
         ];
     }
+    
 
     public static function getTypeCustomer()
     {

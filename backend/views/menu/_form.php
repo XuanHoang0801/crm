@@ -17,7 +17,7 @@ use yii\helpers\ArrayHelper;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'parent')->dropDownList(
-        ArrayHelper::map(Menu::getMenuParent(), 'id', 'name'),['prompt'=>'--Select Option--'])   
+        ArrayHelper::map(Menu::getParent(), 'id', 'name'),['prompt'=>'--Select Option--'])   
     ?>
 
     <?= $form->field($model, 'route')->textInput(['maxlength' => true]) ?>
