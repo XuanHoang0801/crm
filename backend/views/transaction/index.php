@@ -67,7 +67,30 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]),
             ],
             'total',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => function($searchModel){
+                    if($searchModel->status == 0){
+                        return Yii::t('app','Chưa giao dịch');
+                    }
+                    if($searchModel->status == 1){
+                        return Yii::t('app','Đã giao dịch');
+                    }
+                    if($searchModel->status == 2){
+                        return Yii::t('app','Giao dịch thành công');
+                    }
+                },
+               'filter' => Select2::widget(
+                [
+                    'model' => $searchModel,
+                    'attribute' => 'status',
+                    'data' => Transaction::getStatus(),
+                    'options' => ['placeholder' => 'All'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]),
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Transaction $model, $key, $index, $column) {

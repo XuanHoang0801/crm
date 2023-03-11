@@ -18,6 +18,9 @@ use Yii;
  */
 class Transaction extends \yii\db\ActiveRecord
 {
+    // const CHUAGIAODICH = 0;
+    // const DAGIAODICH = 1;
+    // const THANHCONG = 2;
     /**
      * {@inheritdoc}
      */
@@ -53,6 +56,14 @@ class Transaction extends \yii\db\ActiveRecord
             'package_id' => Yii::t('app', 'Gói cước'),
             'total' => Yii::t('app', 'Thành tiền'),
             'status' => Yii::t('app', 'Trạng thái'),
+        ];
+    }
+    public static function getStatus()
+    {
+        return [
+            0 => 'Chưa giao dịch',
+            1 => 'Đã giao dịch',
+            2 => 'Giao dịch thành công',
         ];
     }
 }

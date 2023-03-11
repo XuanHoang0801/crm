@@ -53,6 +53,10 @@ class Staff extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Unit::class,['staff_code' => 'customer_id']);
     }
+    public function getProvince()
+    {
+        return $this->hasOne(Province::class,['province_code' => 'province_id']);
+    }
 
     public static function getStaff()
     {

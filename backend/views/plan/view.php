@@ -32,7 +32,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'customer_id',
-            'form',
+            [
+                'label' => Yii::t('app','Hình thức'),
+                'value' => function($model){
+                    if($model->form  == 0){
+                        return Yii::t('app','Trực tiếp');
+                    }
+                    if($model->form  == 1){
+                        return Yii::t('app','Trực tuyến');
+                    }
+                    if($model->form  == 2){
+                        return Yii::t('app','Kết hợp');
+                    }
+                }
+            ],
             'time_start',
             'time_end',
             'unit_id',

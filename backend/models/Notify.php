@@ -72,7 +72,7 @@ class Notify extends \yii\db\ActiveRecord
     public static function getNotify()
     {
         $user_id = Yii::$app->user->identity->id;
-        $query = Notify::find()->where(['user_id' => $user_id ])->all();
+        $query = Notify::find()->where(['user_id' => $user_id ])->orderBy(['id' => SORT_DESC])->all();
         return $query;
     }
     public static function getCount()

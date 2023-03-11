@@ -25,13 +25,7 @@ use kartik\datetime\DateTimePicker;
         ArrayHelper::map(Unit::getUnit(), 'unit_code', 'name'),['prompt'=>'--Select Option--'])   
     ?>
 
-    <?= $form->field($model, 'form')->dropDownList(
-        [
-            0 => 'Trực tiếp',
-            1 => 'Trực tuyến',
-            2 => 'Kết hợp',
-        ])
-    ?>
+    <?= $form->field($model, 'form')->dropDownList(Yii::$app->params['plan.form'])?>
 
     <?=
         $form->field($model, 'time_start')->widget(DateTimePicker::classname(), [
@@ -55,7 +49,7 @@ use kartik\datetime\DateTimePicker;
 
     <?= $form->field($model, 'error')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'request')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'request')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'fix')->textarea(['rows' => 6]) ?>
 

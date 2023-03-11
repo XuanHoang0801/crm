@@ -36,7 +36,7 @@ class Unit extends \yii\db\ActiveRecord
         return [
             [['name', 'type_unit_id', 'belong_unit_id', 'province_id', 'unit_code'], 'required'],
             [['status'], 'integer'],
-            [['name', 'type_unit_id', 'belong_unit_id', 'link', 'type_customer_id', 'province_id', 'unit_code'], 'string', 'max' => 255],
+            [['name', 'type_unit_id', 'belong_unit_id' , 'type_customer_id', 'province_id', 'unit_code'], 'string', 'max' => 255],
         ];
     }
 
@@ -70,6 +70,11 @@ class Unit extends \yii\db\ActiveRecord
     public function getCustomer()
     {
         return $this->hasOne(TypeCustomer::className(),['id' => 'type_customer_id']);
+    }
+    public function getProvince()
+    {
+        return $this->hasOne(Province::className(),['province_code' => 'province_id']);
+
     }
     public static function getUnit()
     {

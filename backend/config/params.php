@@ -18,5 +18,11 @@ return [
         0 => 'Ẩn',
         1 => 'Hiện',
 
+    ],
+
+    'plan.form'=> [
+        0 => 'Trực tiếp',
+        1 => 'Trực tuyến',
+        2 => 'Kết hợp',
     ]
 ];

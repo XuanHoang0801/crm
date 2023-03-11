@@ -53,7 +53,30 @@ $this->params['breadcrumbs'][] = $this->title;
             
             
 
-            'form',
+            [
+                'attribute' => 'form',
+                'value' => function($searchModel){
+                    if($searchModel->form == 0){
+                        return Yii::t('app','Trực tiếp');
+                    }
+                    if($searchModel->form == 1){
+                        return Yii::t('app','Trực tuyến');
+                    }
+                    if($searchModel->form == 2){
+                        return Yii::t('app','Kết hợp');
+                    }
+                },
+               'filter' => Select2::widget(
+                [
+                    'model' => $searchModel,
+                    'attribute' => 'form',
+                    'data' => Yii::$app->params['plan.form'],
+                    'options' => ['placeholder' => 'All'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]),
+            ],
             'time_start',
             'time_end',
             
