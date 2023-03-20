@@ -223,23 +223,23 @@ class UnitController extends AppController
     public function actionDownloadTemplate() {
         $fields = [
             [
-                'label' => 'unit_code',
-            'attribute' => 'unit_code',
+                'label' => 'Mã đơn vị',
+                'attribute' => 'unit_code',
             ],
             [
-                'label' => 'type_unit_id',
+                'label' => 'Loại đơn vị',
             'attribute' => 'type_unit_id',
             ],
             [
-                'label' => 'name',
+                'label' => 'Tên đơn vị',
             'attribute' => 'name',
             ],
             [
-                'label' => 'belong_unit_id',
+                'label' => 'Đơn vị trực thuộc',
             'attribute' => 'belong_unit_id',
             ],
             [
-                'label' => 'province_id',
+                'label' => 'Mã tỉnh',
             'attribute' => 'province_id',
             ],
             [
@@ -248,12 +248,12 @@ class UnitController extends AppController
             ],
         ];
         
-        $t['unit_code'] = Yii::t('app', 'Mã đơn vị');
-        $t['type_unit_id'] = Yii::t('app', 'Loại đơn vị');
-        $t['name'] = Yii::t('app', 'Tên đơn vị');
-        $t['belong_unit_id'] = Yii::t('app', 'Đơn vị trực thuộc');
-        $t['province_id'] = Yii::t('app', 'Mã tỉnh');
-        $t['link'] = Yii::t('app', 'Link');
+        $t['unit_code'] = Yii::t('app', 'unit_code');
+        $t['type_unit_id'] = Yii::t('app', 'type_unit_id');
+        $t['name'] = Yii::t('app', 'name');
+        $t['belong_unit_id'] = Yii::t('app', 'belong_unit_id');
+        $t['province_id'] = Yii::t('app', 'province_id');
+        $t['link'] = Yii::t('app', 'link');
         $excelData[] = $t;
         BaseUnits::exportExcelTemp('', $fields, 'template_import_unit', $excelData);
     }

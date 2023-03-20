@@ -26,10 +26,10 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'active')->checkBox(['class' => 'control-check mt-3']) ?>
 
-    <?= $form->field($model, 'active')->textInput() ?>
+    <?= $form->field($model, 'icon')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success mt-3']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

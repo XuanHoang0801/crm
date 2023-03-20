@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'model' => $searchModel,
                         'attribute' => 'customer_id',
-                        'data' => ArrayHelper::map(Staff::getStaff(), 'staff_code', 'staff_code'),
+                        'data' => ArrayHelper::map(Staff::getStaff(), 'staff_code', 'name'),
                         'options' => ['placeholder' => 'All'],
                         'pluginOptions' => [
                             'allowClear' => true,
@@ -87,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'model' => $searchModel,
                     'attribute' => 'unit_id',
-                    'data' => ArrayHelper::map(Unit::getUnit(), 'unit_code', 'unit_code'),
+                    'data' => ArrayHelper::map(Unit::getUnit(), 'unit_code', 'name'),
                     'options' => ['placeholder' => 'All'],
                     'pluginOptions' => [
                         'allowClear' => true,

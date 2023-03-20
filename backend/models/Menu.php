@@ -36,8 +36,8 @@ class Menu extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name','active'], 'required'],
-            [['parent', 'type'], 'integer'],
+            [['name'], 'required'],
+            [['parent', 'type','active'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'route', 'icon'], 'string', 'max' => 255],
         ];
@@ -73,6 +73,10 @@ class Menu extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getMeParent()
+    {
+        return $this->hasOne(Menu::class,['id'=>'parent']);
+    }
     public static function getDashboard()
     {
         $dashoard = Menu::find()->where('parent = 1')->andWhere(['active' => 1])->all();

@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => Yii::t('app','Tên menu')
             ],
             [
-                'attribute' => 'parent',
+                'attribute' => 'meParent.name',
                 'label' => Yii::t('app','Menu cha'),
                 'filter' => Select2::widget(
                     [
@@ -55,7 +55,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => Yii::t('app','Đường dẫn')
             ],
             
-            //'icon',
             [
                 'attribute' => 'active',
                 'value' => function($searchModel){
@@ -79,6 +78,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]),
                     
             ],
+            // 'icon',
+
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Menu $model, $key, $index, $column) {

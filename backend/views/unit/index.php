@@ -5,9 +5,13 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 use yii\grid\GridView;
+use app\models\BelongUnit;
+use app\models\TypeUnit;
 use kartik\file\FileInput;
 use yii\grid\ActionColumn;
+use kartik\select2\Select2;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 use yii\bootstrap4\LinkPager;
 /** @var yii\web\View $this */
 /** @var backend\models\UnitSearch $searchModel */
@@ -63,11 +67,31 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'type_unit_id',
                 'value'     => 'type.name',
+                'filter' => Select2::widget(
+                    [
+                        'model' => $searchModel,
+                        'attribute' => 'type_unit_id',
+                        'data' => ArrayHelper::map(TypeUnit::getTypeUnit(), 'type_unit_code', 'name'),
+                        'options' => ['placeholder' => 'All'],
+                        'pluginOptions' => [
+                            'allowClear' => true,
+                        ],
+                    ]),
             ],
 
             [
                 'attribute' => 'belong_unit_id',
                 'value'     => 'belong.name',
+                'filter' => Select2::widget(
+                    [
+                        'model' => $searchModel,
+                        'attribute' => 'belong_unit_id',
+                        'data' => ArrayHelper::map(BelongUnit::getBelongUnit(), 'belong_code', 'name'),
+                        'options' => ['placeholder' => 'All'],
+                        'pluginOptions' => [
+                            'allowClear' => true,
+                        ],
+                    ]),
             ],
             'link',
             //'type_customer_id',
