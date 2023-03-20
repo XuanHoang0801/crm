@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'parent',
             'route',
-            'created_at',
             //'updated_at',
             'type',
             [

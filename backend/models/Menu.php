@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use SebastianBergmann\CodeCoverage\StaticAnalysisCacheNotConfiguredException;
 use Yii;
 use yii\db\Expression;
 use yii\behaviors\TimestampBehavior;
@@ -91,6 +92,11 @@ class Menu extends \yii\db\ActiveRecord
     {
         $parent = Menu::find()->where(['type' => 0])->all();
         return $parent;
+    }
+    public static function getSubMenu($id)
+    {
+        $query = Menu::find()->where(['parent' => $id])->andWhere(['type' => 1])->all();
+        return $query;
     }
 
 

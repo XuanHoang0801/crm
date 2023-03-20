@@ -19,6 +19,10 @@ return [
         1 => 'Hiện',
 
     ],
+    'menu.type'=>[
+        0 => 'Cha',
+        1 => 'Con',
+    ],
 
     'plan.form'=> [
         0 => 'Trực tiếp',

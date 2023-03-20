@@ -56,8 +56,8 @@ use yii\bootstrap5\Html;
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
+                            <a href="<?= Url::toRoute('/user/change-password?id='.Yii::$app->user->identity->id) ?>" class="dropdown-item"><?= Yii::t('app',  'Đổi mật khẩu') ?> </a>
                             <?php
                                 echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
                                 . Html::submitButton(

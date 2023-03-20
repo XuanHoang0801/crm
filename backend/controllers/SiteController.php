@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use common\models\LoginForm;
 use yii\filters\AccessControl;
 use backend\controllers\AppController;
+use mdm\admin\models\form\ChangePassword;
 
 /**
  * Site controller
@@ -43,6 +44,8 @@ class SiteController extends AppController
                 ],
             ],
         ];
+
+        
     }
 
     /**

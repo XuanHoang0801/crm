@@ -34,7 +34,7 @@ class Unit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'type_unit_id', 'belong_unit_id', 'province_id', 'unit_code'], 'required'],
+            [['name', 'type_unit_id', 'belong_unit_id', 'unit_code'], 'required'],
             [['status'], 'integer'],
             [['name', 'type_unit_id', 'belong_unit_id' , 'type_customer_id', 'province_id', 'unit_code'], 'string', 'max' => 255],
         ];
