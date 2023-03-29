@@ -66,4 +66,8 @@ class Plan extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Unit::class,['unit_code'=> 'unit_id']);
     }
+    public function getStaff()
+    {
+        return $this->hasOne(Staff::class,['staff_code'=> 'customer_id']);
+    }
 }

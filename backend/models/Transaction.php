@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Unit;
 
 /**
  * This is the model class for table "transaction".
@@ -65,5 +66,14 @@ class Transaction extends \yii\db\ActiveRecord
             1 => 'Đã giao dịch',
             2 => 'Giao dịch thành công',
         ];
+    }
+
+    public function getUnit()
+    {
+        return $this->hasOne(Unit::class,['unit_code'=> 'unit_id']);
+    }
+    public function getPackage()
+    {
+        return $this->hasOne(Package::class,['code'=> 'package_id']);
     }
 }

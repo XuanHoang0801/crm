@@ -38,28 +38,38 @@ $this->params['breadcrumbs'][] = $this->title;
             'code',
             [
                 'attribute' => 'unit_id',
-                'value' => 'unit_id',
+                'value' => 'unit.name',
+                'headerOptions' => ['style' => 'width:15%'],   
+
                'filter' => Select2::widget(
                 [
                     'model' => $searchModel,
                     'attribute' => 'unit_id',
-                    'data' => ArrayHelper::map(Unit::getUnit(), 'unit_code', 'unit_code'),
+                    'data' => ArrayHelper::map(Unit::getUnit(), 'unit_code', 'name'),
                     'options' => ['placeholder' => 'All'],
                     'pluginOptions' => [
                         'allowClear' => true,
                     ],
                 ]),
             ],
-            'time_start',
-            'time_end',
+            [
+                'attribute' => 'time_start',
+                'headerOptions' => ['style' => 'width:10%'],   
+            ],  
+            [
+                'attribute' => 'time_end',
+                'headerOptions' => ['style' => 'width:10%'],   
+            ],  
             [
                 'attribute' => 'package_id',
-                'value' => 'package_id',
+                'value' => 'package.name',
+                'headerOptions' => ['style' => 'width:15%'],   
+
                'filter' => Select2::widget(
                 [
                     'model' => $searchModel,
                     'attribute' => 'package_id',
-                    'data' => ArrayHelper::map(Package::getPackage(), 'code', 'code'),
+                    'data' => ArrayHelper::map(Package::getPackage(), 'code', 'name'),
                     'options' => ['placeholder' => 'All'],
                     'pluginOptions' => [
                         'allowClear' => true,
@@ -80,6 +90,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Yii::t('app','Giao dịch thành công');
                     }
                 },
+                'headerOptions' => ['style' => 'width:15%'],   
+
                'filter' => Select2::widget(
                 [
                     'model' => $searchModel,

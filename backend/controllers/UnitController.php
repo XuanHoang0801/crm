@@ -4,7 +4,9 @@ namespace backend\controllers;
 
 use Yii;
 use Exception;
+use app\models\Step;
 use app\models\Unit;
+use app\models\ActionLog;
 use yii\web\UploadedFile;
 use common\units\BaseUnits;
 use yii\filters\VerbFilter;
@@ -96,6 +98,10 @@ class UnitController extends AppController
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                $step = new Step();
+                $step->unit_id = $model->unit_code;
+                $step->save();
+
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -117,8 +123,39 @@ class UnitController extends AppController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $before = array(
+            'id' =>$this->id,
+                'unit_code'=>$model->unit_code,
+                'name' => $model->name,
+                'type_unit_id' => $model->type_unit_id,
+                'belong_unit_id' => $model->belong_unit_id,
+                'link' => $model->link,
+                'type_customer_id'=>$model->type_customer_id,
+                'provice_id' => $model->province_id,
+                'status' => $model->status
+        );
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post() ))  {
+            $model->save();
+            $data = array(
+                'id' =>$model->id,
+                'unit_code'=>$model->unit_code,
+                'name' => $model->name,
+                'type_unit_id' => $model->type_unit_id,
+                'belong_unit_id' => $model->belong_unit_id,
+                'link' => $model->link,
+                'type_customer_id'=>$model->type_customer_id,
+                'provice_id' => $model->province_id,
+                'status' => $model->status
+            );
+            $log = new ActionLog();
+            $log->user_id = Yii::$app->user->id;
+            $log->data_before = json_encode($before);
+            $log->data_after = json_encode($data);
+            $log->content_id = $model->id;
+            $log->created_at = date('Y-m-d h:i:s');
+            $log->url = Yii::$app->request->url;
+            $log->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -219,6 +256,18 @@ class UnitController extends AppController
         return true;
         
     }   
+
+    public function actionAjaxDelete()
+    {
+        $id = Yii::$app->request->post('id');
+        $this->findModel($id)->delete();
+        
+    }
+    public function actionAjaxDeleteAll()
+    {
+        Unit::deleteAll();
+        
+    }
 
     public function actionDownloadTemplate() {
         $fields = [

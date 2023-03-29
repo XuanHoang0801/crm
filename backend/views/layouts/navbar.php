@@ -38,7 +38,7 @@ use yii\bootstrap5\Html;
                             <?php } else{ }
                                 foreach (Notify::getNotify() as $notify){
                             ?>
-                                <a href="<?= Url::toRoute('task/view?id='.$notify->task_id) ?>" class="dropdown-item">
+                                <a href="<?= Url::toRoute('task/view?id='.$notify->task_id) ?>" class="dropdown-item <?php if($notify->status == 0){echo "active";} ?>">
                                     <h6 class="fw-normal mb-0"><?= $notify->title ?></h6>
                                     <small><?= $notify->created_at ?></small>
                                 </a>

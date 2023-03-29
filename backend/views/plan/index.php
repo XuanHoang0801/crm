@@ -38,7 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             [
                 'attribute' => 'customer_id',
-                'value' => 'customer_id',
+                'value' => 'staff.name',
+                'headerOptions' => ['style' => 'width:15%'],   
+                
                 'filter' => Select2::widget(
                     [
                         'model' => $searchModel,
@@ -66,6 +68,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Yii::t('app','Kết hợp');
                     }
                 },
+                'headerOptions' => ['style' => 'width:15%'],   
+
                'filter' => Select2::widget(
                 [
                     'model' => $searchModel,
@@ -77,12 +81,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]),
             ],
-            'time_start',
-            'time_end',
+            [
+                'attribute' => 'time_start',
+                'headerOptions' => ['style' => 'width:10%'],   
+            ],  
+            [
+                'attribute' => 'time_end',
+                'headerOptions' => ['style' => 'width:10%'],   
+            ],  
             
             [
                 'attribute' => 'unit_id',
                 'value' => 'unit_id',
+                'headerOptions' => ['style' => 'width:15%'],   
+
                'filter' => Select2::widget(
                 [
                     'model' => $searchModel,

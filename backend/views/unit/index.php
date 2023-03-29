@@ -16,9 +16,11 @@ use yii\bootstrap4\LinkPager;
 /** @var yii\web\View $this */
 /** @var backend\models\UnitSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
+$this->registerJsFile('@web/js/delete_unit.js', ['depends' =>  [yii\web\YiiAsset::className()], ]);
 
 $this->title = Yii::t('app', 'Units');
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="unit-index">
 
@@ -27,6 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('app', 'Create Unit'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
+    
 
     <fieldset class="form-group" style="border: solid 1px #ccc; padding: 10px;margin-top: 28px">
     <legend style="height: 2px">
@@ -50,7 +54,12 @@ $this->params['breadcrumbs'][] = $this->title;
         ]
     ])->label(false) ?>
         <a href="<?= Url::to(['unit/download-template']) ?>" class="mt-3" style="color: red"><?= Yii::t('app', 'Download template') ?></a>
+    <div class="delete" style="display:none">
+        <button class="btn btn-danger" id="delete" >Xóa dữ liệu đã chọn</button>
+        <button class="btn btn-danger" id="delete-all">Xóa tất cả</button>
+    </div>
     <?php ActiveForm::end(); ?>
+    
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -59,14 +68,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            ['class' => 'yii\grid\CheckboxColumn'],
+
             ['class' => 'yii\grid\SerialColumn'],
 
             // 'id',
-            'unit_code',
+            // 'unit_code',
+            [
+                'attribute' => 'unit_code',
+                'headerOptions' => ['style' => 'width:10%']           
+            ],
+
             'name',
             [
                 'attribute' => 'type_unit_id',
                 'value'     => 'type.name',
+                'headerOptions' => ['style' => 'width:20%'],
                 'filter' => Select2::widget(
                     [
                         'model' => $searchModel,
@@ -82,6 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'belong_unit_id',
                 'value'     => 'belong.name',
+                'headerOptions' => ['style' => 'width:20%'],     
                 'filter' => Select2::widget(
                     [
                         'model' => $searchModel,
@@ -93,7 +111,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ]),
             ],
-            'link',
+            [
+                'attribute' => 'link',
+                'headerOptions' => ['style' => 'width:20%']           
+
+            ],
             //'type_customer_id',
             //'status',
             //'province_id',

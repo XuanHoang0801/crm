@@ -1,19 +1,21 @@
 <?php
 
+use yii\web\View;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 use yii\grid\GridView;
 use app\models\Categories;
 use kartik\file\FileInput;
-use yii\bootstrap4\LinkPager as Bootstrap4LinkPager;
 use yii\grid\ActionColumn;
 use yii\widgets\ActiveForm;
+use backend\assets\AppAsset;
 use yii\bootstrap5\LinkPager;
+use yii\bootstrap4\LinkPager as Bootstrap4LinkPager;
 /** @var yii\web\View $this */
 /** @var backend\models\CategoriesSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
-// $this->registerJsFile('js/check_box.js');
+$this->registerJsFile('@web/js/check_box.js', ['depends' => [yii\web\YiiAsset::className()], ]);
 $this->title = Yii::t('app', 'Thể loại');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -55,8 +57,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="delete" style="display:none">
         <button class="btn btn-danger" id="delete" >Xóa dữ liệu đã chọn</button>
         <button class="btn btn-danger" id="delete-all">Xóa tất cả</button>
-
-
     </div>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
