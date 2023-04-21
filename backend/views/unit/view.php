@@ -32,12 +32,30 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'id',
             'unit_code',
             'name',
-            'value'     => 'type.name',
-            'value'     => 'belong.name',
+            'type.name',
+            'belong.name',
+            'customer.name',
+            'province.name',
             'link',
-            'value'     => 'customer.name',
-            'status',
-            'province_id',
+            [
+                'label' => Yii::t('app','Trạng thái'),
+                'value' => function($model){
+                    if($model->status  == 0){
+                        return Yii::t('app','Dùng thử');
+                    }
+                    if($model->status  == 1){
+                        return Yii::t('app','Đang hoạt động');
+                    }
+                    if($model->status  == 2){
+                        return Yii::t('app','Không hoạt động');
+                    }
+                    if($model->status  == 3){
+                        return Yii::t('app','Hết hạn');
+                    }
+
+                }
+            ],
+
         ],
     ]) ?>
 

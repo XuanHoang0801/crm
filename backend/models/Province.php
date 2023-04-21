@@ -39,8 +39,8 @@ class Province extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'province_code' => Yii::t('app', 'Province Code'),
+            'name' => Yii::t('app', 'Tên Tỉnh/TP'),
+            'province_code' => Yii::t('app', 'Mã Tỉnh/TP'),
         ];
     }
 

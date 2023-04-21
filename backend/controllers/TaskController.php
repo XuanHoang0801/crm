@@ -81,8 +81,11 @@ class TaskController extends AppController
     public function actionView($id)
     {
         $notify = Notify::find()->where(['user_id' => Yii::$app->user->identity->id])->andWhere(['task_id'=>$id])->one();
-        $notify->status = 1;
-        $notify->save();
+        // var_dump($notify);die();
+        if($notify){
+            $notify->status = 1;
+            $notify->save();
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -108,7 +111,7 @@ class TaskController extends AppController
                 $notify->task_id = $model->id;
                 $notify->status = 0;
                 $notify->save();
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['update', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();

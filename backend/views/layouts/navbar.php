@@ -38,7 +38,7 @@ use yii\bootstrap5\Html;
                             <?php } else{ }
                                 foreach (Notify::getNotify() as $notify){
                             ?>
-                                <a href="<?= Url::toRoute('task/view?id='.$notify->task_id) ?>" class="dropdown-item">
+                                <a href="<?= Url::toRoute('task/view?id='.$notify->task_id) ?>" class="dropdown-item <?php if($notify->status == 0){echo "active";} ?>">
                                     <h6 class="fw-normal mb-0"><?= $notify->title ?></h6>
                                     <small><?= $notify->created_at ?></small>
                                 </a>
@@ -56,8 +56,8 @@ use yii\bootstrap5\Html;
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
+                            <a href="<?= Url::toRoute('/user/change-password?id='.Yii::$app->user->identity->id) ?>" class="dropdown-item"><?= Yii::t('app',  'Đổi mật khẩu') ?> </a>
                             <?php
                                 echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
                                 . Html::submitButton(

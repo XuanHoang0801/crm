@@ -283,3 +283,6 @@
     background: var(--dark);
     border-color: var(--primary);
 }
+.cursor-pointer{
+    cursor: pointer;
+}

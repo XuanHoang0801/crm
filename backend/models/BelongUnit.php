@@ -40,7 +40,7 @@ class BelongUnit extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Tên đơn vị'),
+            'name' => Yii::t('app', 'Đơn vị trực thuộc'),
             'belong_code' => Yii::t('app', 'Mã đơn vị'),
             'province_id' => Yii::t('app', 'Mã tỉnh'),
         ];

@@ -1,11 +1,14 @@
 <?php
 
+use app\models\Province;
+use yii\helpers\Url;
 use app\models\Staff;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\grid\GridView;
+use yii\grid\ActionColumn;
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 /** @var yii\web\View $this */
 /** @var backend\models\StaffSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -30,12 +33,34 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            // 'id',
+            // 'staff_code',
+            [
+                'attribute' => 'staff_code',
+                'headerOptions' => ['style' => 'width:10%']           
+            ],
             'name',
-            'phone',
+            [
+                'attribute' => 'phone',
+                'headerOptions' => ['style' => 'width:15%']           
+            ],
             'email:email',
-            'province_id',
-            //'staff_code',
+            // 'province.name',
+            [
+                'attribute' => 'province_id',
+                'value'     => 'province.name',
+                'headerOptions' => ['style' => 'width:20%'],        
+                'filter' => Select2::widget(
+                    [
+                        'model' => $searchModel,
+                        'attribute' => 'province_id',
+                        'data' => ArrayHelper::map(Province::getProvince(), 'province_code', 'name'),
+                        'options' => ['placeholder' => 'All'],
+                        'pluginOptions' => [
+                            'allowClear' => true,
+                        ],
+                    ]),
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Staff $model, $key, $index, $column) {

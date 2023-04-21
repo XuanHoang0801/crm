@@ -14,7 +14,8 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'lib/owlcarousel/assets/owl.carousel.min.css',
-        'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css',
+        // 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css',
+        // 'css/fon',
         'css/bootstrap.min.css',
         'css/style.css',
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css',
@@ -35,7 +36,8 @@ class AppAsset extends AssetBundle
         // 'https://code.jquery.com/jquery-3.6.3.js',
         'js/ckeditor/ckeditor.js',
         'js/language.js',
-        'js/check_box.js'
+        // 'js/delete_unit.js',
+        // 'js/check_box.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

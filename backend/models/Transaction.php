@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Unit;
 
 /**
  * This is the model class for table "transaction".
@@ -18,6 +19,9 @@ use Yii;
  */
 class Transaction extends \yii\db\ActiveRecord
 {
+    // const CHUAGIAODICH = 0;
+    // const DAGIAODICH = 1;
+    // const THANHCONG = 2;
     /**
      * {@inheritdoc}
      */
@@ -54,5 +58,22 @@ class Transaction extends \yii\db\ActiveRecord
             'total' => Yii::t('app', 'Thành tiền'),
             'status' => Yii::t('app', 'Trạng thái'),
         ];
+    }
+    public static function getStatus()
+    {
+        return [
+            0 => 'Chưa giao dịch',
+            1 => 'Đã giao dịch',
+            2 => 'Giao dịch thành công',
+        ];
+    }
+
+    public function getUnit()
+    {
+        return $this->hasOne(Unit::class,['unit_code'=> 'unit_id']);
+    }
+    public function getPackage()
+    {
+        return $this->hasOne(Package::class,['code'=> 'package_id']);
     }
 }

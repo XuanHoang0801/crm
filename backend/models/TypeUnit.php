@@ -39,7 +39,7 @@ class TypeUnit extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Tên'),
+            'name' => Yii::t('app', 'Loại đơn vị'),
             'type_unit_code' => Yii::t('app', 'Mã loại đơn vị'),
         ];
     }

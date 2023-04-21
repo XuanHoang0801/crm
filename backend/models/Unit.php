@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Step;
 use app\models\TypeUnit;
 
 /**
@@ -34,9 +35,9 @@ class Unit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'type_unit_id', 'belong_unit_id', 'province_id', 'unit_code'], 'required'],
+            [['name', 'type_unit_id', 'belong_unit_id', 'unit_code'], 'required'],
             [['status'], 'integer'],
-            [['name', 'type_unit_id', 'belong_unit_id', 'link', 'type_customer_id', 'province_id', 'unit_code'], 'string', 'max' => 255],
+            [['name', 'type_unit_id', 'belong_unit_id' , 'type_customer_id', 'province_id', 'unit_code'], 'string', 'max' => 255],
         ];
     }
 
@@ -71,9 +72,98 @@ class Unit extends \yii\db\ActiveRecord
     {
         return $this->hasOne(TypeCustomer::className(),['id' => 'type_customer_id']);
     }
-    public static function getUnit()
+    public function getProvince()
     {
-        return Unit::find()->all();
+        return $this->hasOne(Province::className(),['province_code' => 'province_id']);
+
+    }
+    public function getSteps()
+    {
+        return $this->hasOne(Step::className(),['unit_id' => 'unit_code']);
+
     }
     
+    public static function getUnit()
+    {
+        return Unit::find()->orderBy(['id' => SORT_DESC] )->all();
+    }
+    public function afterSave($insert,$changedAttributes){
+        if($this->isNewRecord){
+
+            $step = new Step();
+            $step->unit_id = $this->unit_code;
+            $step->intro = 0;
+            $step->zalo = 0;
+            $step->save();
+
+            $data = array(
+                'id' =>$this->id,
+                'unit_code'=>$this->unit_code,
+                'name' => $this->name,
+                'type_unit_id' => $this->type_unit_id,
+                'belong_unit_id' => $this->belong_unit_id,
+                'link' => $this->link,
+                'type_customer_id'=>$this->type_customer_id,
+                'provice_id' => $this->province_id,
+                'status' => $this->status
+            );
+            $log = new ActionLog();
+            $log->user_id = Yii::$app->user->id;
+            $log->data_before = json_encode($data);
+            $log->content_id = $this->id;
+            $log->created_at = date('Y-m-d h:i:s');
+            $log->url = Yii::$app->request->url;
+            $log->save();
+            return parent::afterSave($insert, $changedAttributes);
+        }
+    }
+    public function beforeDelete()
+    {
+        Yii::$app->db->createCommand("DELETE FROM step WHERE unit_id = '$this->unit_code'")->execute();
+        $data = array(
+            'id' =>$this->id,
+            'unit_code'=>$this->unit_code,
+            'name' => $this->name,
+            'type_unit_id' => $this->type_unit_id,
+            'belong_unit_id' => $this->belong_unit_id,
+            'link' => $this->link,
+            'type_customer_id'=>$this->type_customer_id,
+            'provice_id' => $this->province_id,
+            'status' => $this->status
+        );
+        $log = new ActionLog();
+        $log->user_id = Yii::$app->user->id;
+        $log->data_before = json_encode($data);
+        $log->content_id = $this->id;
+        $log->created_at = date('Y-m-d h:i:s');
+        $log->url = Yii::$app->request->url;
+        $log->save();
+        return parent::beforeDelete();
+
+    }
+
+    // public function afterDelete()
+    // {
+    //     $data = array(
+    //         'id' =>$this->id,
+    //         'unit_code'=>$this->unit_code,
+    //         'name' => $this->name,
+    //         'type_unit_id' => $this->type_unit_id,
+    //         'belong_unit_id' => $this->belong_unit_id,
+    //         'link' => $this->link,
+    //         'type_customer_id'=>$this->type_customer_id,
+    //         'provice_id' => $this->province_id,
+    //         'status' => $this->status
+    //     );
+    //     $log = new ActionLog();
+    //     $log->user_id = Yii::$app->user->id;
+    //     $log->data_before = json_encode($data);
+    //     $log->content_id = $this->id;
+    //     $log->created_at = date('Y-m-d h:i:s');
+    //     $log->url = Yii::$app->request->url;
+    //     $log->save();
+    //     return parent::afterDelete();
+    // }
+    
 }
+ 

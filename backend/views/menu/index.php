@@ -1,11 +1,12 @@
 <?php
 
 use app\models\Menu;
-use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
+use yii\grid\GridView;
+use yii\grid\ActionColumn;
+use kartik\select2\Select2;
 /** @var yii\web\View $this */
 /** @var backend\models\MenuSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -21,7 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', 'Create Menu'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -34,10 +34,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'parent',
             'route',
-            'created_at',
             //'updated_at',
             'type',
-            'active',
+            [
+                'attribute' => 'active',
+                'value' => 'active',
+               'filter' => Select2::widget(
+                [
+                    'model' => $searchModel,
+                    'attribute' => 'active',
+                    'data' => Yii::$app->params['menu.active'],
+                    'options' => ['placeholder' => 'All'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]),
+            ],
             //'icon',
             [
                 'class' => ActionColumn::className(),
@@ -48,6 +60,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
 
 </div>

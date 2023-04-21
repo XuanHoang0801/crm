@@ -179,7 +179,7 @@ class BaseUnits {
         foreach ($fields as $field) {
         $columnName = Coordinate::stringFromColumnIndex($columnIndex++);
         $value = $model[$field['attribute']];
-        
+        $spreadsheet->getActiveSheet()->getColumnDimension($columnName)->setWidth(30);
         $spreadsheet->getActiveSheet()->setCellValue($columnName . strval($row + 1), $value);
         }
         

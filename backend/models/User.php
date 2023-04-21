@@ -22,6 +22,9 @@ use Yii;
  */
 class User extends \yii\db\ActiveRecord
 {
+    public $password_old;
+    public $re_password;
+    public $password_new;
     /**
      * {@inheritdoc}
      */
@@ -36,7 +39,7 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at','password_old','re_password','password_new'], 'required'],
             [['status', 'created_at', 'updated_at'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email', 'verification_token'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],

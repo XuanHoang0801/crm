@@ -17,16 +17,12 @@ use yii\helpers\ArrayHelper;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'parent')->dropDownList(
-        ArrayHelper::map(Menu::getMenuParent(), 'id', 'name'),['prompt'=>'--Select Option--'])   
+        ArrayHelper::map(Menu::getParent(), 'id', 'name'),['prompt'=>'--Select Option--'])   
     ?>
 
     <?= $form->field($model, 'route')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'type')->textInput() ?>
+    <?= $form->field($model, 'type')->dropDownList(Yii::$app->params['menu.type'],['prompt'=>'--Select Option--'])?>
 
     <?= $form->field($model, 'active')->checkBox(['class' => 'control-check mt-3']) ?>
 

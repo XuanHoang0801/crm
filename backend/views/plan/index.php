@@ -1,11 +1,15 @@
 <?php
 
 use app\models\Plan;
-use yii\helpers\Html;
+use app\models\Unit;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use app\models\Staff;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
+use yii\grid\GridView;
+use yii\grid\ActionColumn;
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 /** @var yii\web\View $this */
 /** @var backend\models\PlanSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -32,11 +36,76 @@ $this->params['breadcrumbs'][] = $this->title;
 
             // 'id',
             'name',
-            'customer_id',
-            'form',
-            'time_start',
-            'time_end',
-            'unit_id',
+            [
+                'attribute' => 'customer_id',
+                'value' => 'staff.name',
+                'headerOptions' => ['style' => 'width:15%'],   
+                
+                'filter' => Select2::widget(
+                    [
+                        'model' => $searchModel,
+                        'attribute' => 'customer_id',
+                        'data' => ArrayHelper::map(Staff::getStaff(), 'staff_code', 'name'),
+                        'options' => ['placeholder' => 'All'],
+                        'pluginOptions' => [
+                            'allowClear' => true,
+                        ],
+                    ]),
+            ],
+            
+            
+
+            [
+                'attribute' => 'form',
+                'value' => function($searchModel){
+                    if($searchModel->form == 0){
+                        return Yii::t('app','Trực tiếp');
+                    }
+                    if($searchModel->form == 1){
+                        return Yii::t('app','Trực tuyến');
+                    }
+                    if($searchModel->form == 2){
+                        return Yii::t('app','Kết hợp');
+                    }
+                },
+                'headerOptions' => ['style' => 'width:15%'],   
+
+               'filter' => Select2::widget(
+                [
+                    'model' => $searchModel,
+                    'attribute' => 'form',
+                    'data' => Yii::$app->params['plan.form'],
+                    'options' => ['placeholder' => 'All'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]),
+            ],
+            [
+                'attribute' => 'time_start',
+                'headerOptions' => ['style' => 'width:10%'],   
+            ],  
+            [
+                'attribute' => 'time_end',
+                'headerOptions' => ['style' => 'width:10%'],   
+            ],  
+            
+            [
+                'attribute' => 'unit_id',
+                'value' => 'unit_id',
+                'headerOptions' => ['style' => 'width:15%'],   
+
+               'filter' => Select2::widget(
+                [
+                    'model' => $searchModel,
+                    'attribute' => 'unit_id',
+                    'data' => ArrayHelper::map(Unit::getUnit(), 'unit_code', 'name'),
+                    'options' => ['placeholder' => 'All'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]),
+            ],
             //'content:ntext',
             //'error:ntext',
             //'request',

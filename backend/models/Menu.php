@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use SebastianBergmann\CodeCoverage\StaticAnalysisCacheNotConfiguredException;
 use Yii;
 use yii\db\Expression;
 use yii\behaviors\TimestampBehavior;
@@ -35,8 +36,8 @@ class Menu extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name','active'], 'required'],
-            [['parent', 'type'], 'integer'],
+            [['name'], 'required'],
+            [['parent', 'type','active'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'route', 'icon'], 'string', 'max' => 255],
         ];
@@ -72,6 +73,10 @@ class Menu extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getMeParent()
+    {
+        return $this->hasOne(Menu::class,['id'=>'parent']);
+    }
     public static function getDashboard()
     {
         $dashoard = Menu::find()->where('parent = 1')->andWhere(['active' => 1])->all();
@@ -86,6 +91,16 @@ class Menu extends \yii\db\ActiveRecord
     {
         $parent = Menu::find()->where(['type' => 0])->andWhere(['active' => 1])->all();
         return $parent;
+    }
+    public static function getParent()
+    {
+        $parent = Menu::find()->where(['type' => 0])->all();
+        return $parent;
+    }
+    public static function getSubMenu($id)
+    {
+        $query = Menu::find()->where(['parent' => $id])->andWhere(['type' => 1])->all();
+        return $query;
     }
 
 

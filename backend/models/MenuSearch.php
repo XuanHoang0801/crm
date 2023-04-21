@@ -18,7 +18,7 @@ class MenuSearch extends Menu
     {
         return [
             [['id', 'parent', 'type'], 'integer'],
-            [['name', 'route', 'created_at', 'updated_at', 'icon'], 'safe'],
+            [['name', 'route', 'created_at', 'updated_at', 'icon','active'], 'safe'],
         ];
     }
 
